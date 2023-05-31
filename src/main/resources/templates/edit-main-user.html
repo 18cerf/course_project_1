@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>КУРСОВОЙ ПРОЕКТ</title>
+    <link rel="stylesheet" th:href="@{/styles/style_registration.css}"/>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="\static\styles\style_registration.css"
+          th:href="@{/styles/style_registration.css}">
+</head>
+<body>
+<div class="section">
+    <div class="header">
+        <h1>
+            Изменить
+        </h1>
+    </div>
+    <div class="register_form">
+        <form method="POST" th:action="@{/users/main/edit}" th:object="${user}">
+            <div class="info">
+                <label for="username">Новый Никнейм: </label>
+                <br>
+                <input type="text" th:field="*{username}" th:value="${user.username}" id="username"/>
+                <div class="validationError"
+                     th:if="${#fields.hasErrors('username')}"
+                     th:errors="*{username}">Ошибка, никнейм должен содержать больше 5 символов
+                </div>
+
+                <div class="validationError" th:text="${error_message}">Пользователь с таким логином уже существует</div>
+            </div>
+
+            <div class="info">
+                <label for="password">Новый Пароль: </label>
+                <br>
+                <input type="password" th:field="*{password}" th:value="${user.password}" id="password"/>
+                <div class="validationError"
+                     th:if="${#fields.hasErrors('password')}"
+                     th:errors="*{password}">Ошибка, пароль должен содержать больше 6 символов
+                </div>
+            </div>
+
+            <!--    <label for="confirm">Confirm password: </label>-->
+            <!--    <input type="password" name="confirm"/><br/>-->
+
+            <div class="info">
+                <label for="name">Новое Имя: </label>
+                <br>
+                <input type="text" th:field="*{name}" th:value="${user.name}"  id="name"/>
+                <div class="validationError"
+                     th:if="${#fields.hasErrors()}"
+                     th:errors="*{name}">Имя должно начинаться с большой буквы
+                </div>
+            </div>
+
+            <div class="info">
+                <label for="lastname">Новая Фамилия: </label>
+                <br>
+                <input type="text" th:field="*{lastname}" th:value="${user.lastname}"  id="lastname"/>
+                <div class="validationError"
+                     th:if="${#fields.hasErrors()}"
+                     th:errors="*{lastname}">Фамилия должна начинаться с большой буквы
+                </div>
+            </div>
+
+            <div class="info">
+                <label for="phoneNumber">Новый Номер телефона: </label>
+                <br>
+                <input type="text" th:field="*{phoneNumber}" th:value="${user.phoneNumber}"  id="phoneNumber"/>
+                <div class="validationError"
+                     th:if="${#fields.hasErrors()}"
+                     th:errors="*{phoneNumber}">Введите, пожалуйста, верный телефон
+                </div>
+            </div>
+
+            <div class="info">
+                <label for="email">Новый email: </label>
+                <br>
+                <input type="text" th:field="*{email}" th:value="${user.email}"  id="email"/>
+                <div class="validationError"
+                     th:if="${#fields.hasErrors()}"
+                     th:errors="*{email}">Введите, пожалуйста, верную почту
+                </div>
+            </div>
+
+            <!--    <div>-->
+            <!--        <label for="hobbies">Your hobbies: </label>-->
+            <!--        <input type="text" th:field="*{hobbies}" id="hobbies"/>-->
+            <!--    </div>-->
+
+
+            <input type="submit" value="Изменить" class="register_button"/>
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        </form>
+
+        <div class="sign_out">
+            <form th:action="@{/users/main}" method="get">
+                <input type="submit" value="На главную" class="button"/>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

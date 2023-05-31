@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>КУРСОВОЙ ПРОЕКТ</title>
+    <link rel="stylesheet" th:href="@{/styles/style_registration.css}"/>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="\static\styles\style_registration.css"
+          th:href="@{/styles/style_registration.css}">
+</head>
+<body>
+<div class="section">
+    <div class="header">
+        <h1>
+            Регистрация
+        </h1>
+    </div>
+    <div class="register_form">
+        <form method="POST" th:action="@{/registration}" th:object="${registerForm}">
+            <div class="info">
+                <label for="username">Никнейм: </label>
+                <br>
+                <input type="text" th:field="*{username}" id="username"/>
+                <div class="validationError"
+                     th:if="${#fields.hasErrors('username')}"
+                     th:errors="*{username}">Ошибка, никнейм должен содержать больше 5 символов
+                </div>
+                <div class="validationError" th:text="${error_message}">Пользователь с таким логином уже существует</div>
+            </div>
+            <div class="info">
+                <label for="password">Пароль: </label>
+                <br>
+                <input type="password" th:field="*{password}" id="password"/>
+                <div class="validationError"
+                     th:if="${#fields.hasErrors('password')}"
+                     th:errors="*{password}">Ошибка, пароль должен содержать больше 6 символов
+                </div>
+            </div>
+            <div class="info">
+                <label for="name">Имя: </label>
+                <br>
+                <input type="text" th:field="*{name}" id="name"/>
+                <div class="validationError"
+                     th:if="${#fields.hasErrors()}"
+                     th:errors="*{name}">Имя должно начинаться с большой буквы
+                </div>
+            </div>
+            <div class="info">
+                <label for="lastname">Фамилия: </label>
+                <br>
+                <input type="text" th:field="*{lastname}" id="lastname"/>
+                <div class="validationError"
+                     th:if="${#fields.hasErrors()}"
+                     th:errors="*{lastname}">Фамилия должна начинаться с большой буквы
+                </div>
+            </div>
+
+            <div class="info">
+                <label for="phoneNumber">Номер телефона: </label>
+                <br>
+                <input type="text" th:field="*{phoneNumber}" id="phoneNumber"/>
+                <div class="validationError"
+                     th:if="${#fields.hasErrors()}"
+                     th:errors="*{phoneNumber}">Введите, пожалуйста, верный телефон
+                </div>
+            </div>
+            <div class="info">
+                <label for="email">email: </label>
+                <br>
+                <input type="text" th:field="*{email}" id="email"/>
+                <div class="validationError"
+                     th:if="${#fields.hasErrors()}"
+                     th:errors="*{email}">Введите, пожалуйста, верную почту
+                </div>
+            </div>
+            <input type="submit" value="Зарегистрироваться" class="register_button"/>
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

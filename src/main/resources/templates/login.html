@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>КУРСОВОЙ ПРОЕКТ</title>
+    <link rel="stylesheet" th:href="@{/styles/style_login.css}"/>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="\static\styles\style_login.css"
+          th:href="@{/styles/style_login.css}">
+</head>
+<body>
+<div class="section">
+    <div class="header">
+        <h1>Войти</h1>
+    </div>
+
+    <div class="main">
+        <div class="no_account">
+            <p>Нету аккаунта? Нажмите <a href="/registration" th:href="@{/registration}">здесь</a>, чтобы зарегистрироваться.
+            </p>
+        </div>
+
+        <form method="POST" th:action="@{/login}" class="loginForm">
+            <div class="user_contacts">
+                <label for="username">Логин:</label><br>
+                <input type="text" name="username" class="data"/><br/>
+            </div>
+            <div class="user_contacts">
+                <label for="password">Пароль: </label><br>
+                <input type="password" name="password" class="data"/><br/>
+            </div>
+            <div class="sign_in">
+                <input type="submit" value="Войти" class="button"/>
+            </div>
+
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        </form>
+
+    </div>
+
+    <br>
+    <br>
+
+    <div th:if="${param.error}" class="message">
+        Неверный никнейм или пароль.
+    </div>
+    <div th:if="${param.logout}" class="message">
+       Вы успешно вышли из аккаунта.
+    </div>
+</div>
+</body>
+</html>

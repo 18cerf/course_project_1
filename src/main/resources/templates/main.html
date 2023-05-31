@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>КУРСОВОЙ ПРОЕКТ</title>
+    <link rel="stylesheet" th:href="@{/styles/style_main.css}"/>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="\static\styles\style_main.css"
+          th:href="@{/styles/style_main.css}">
+</head>
+<body>
+<div class="section">
+    <div class="header">
+        <h1>
+            <span th:text="${user.name}">Имя Фамилия</span> <span th:text="${user.lastname}"></span>
+        </h1>
+    </div>
+
+    <div class="contacts"><img th:if="${userImage}"
+                               th:src="'data:image/png;base64,' + ${userImage}"
+                               alt="User Image"
+                               style="width: 300px">
+    </div>
+
+
+    <div class="contacts">
+        <h2>Никнейм:</h2>
+        <span th:text="${user.username}">Никнейм</span>
+    </div>
+    <div class="contacts">
+        <h2>Номер телефона: </h2>
+        <span th:text="${user.phoneNumber}">Номер телефона </span>
+    </div>
+    <div class="contacts">
+        <h2>Электронная почта: </h2>
+        <span th:text="${user.email}"> Почта </span>
+    </div>
+
+
+    <h2>Друзья:</h2>
+    <ul>
+        <li class="contacts" th:each="friend : ${user_friends}">
+            <a th:href="@{/users/{id}(id=${friend.id})}">
+                <span th:text="${friend.name}">friend name</span>
+                <span th:text="${friend.lastname}">friend name</span>
+                <br>
+                <span th:text="${friend.username}">friend name</span>
+            </a>
+        </li>
+    </ul>
+
+<h3>Последнее время входа:</h3>
+        <ul>
+            <li class="contacts" th:each="time : ${login_times}">
+                <span th:text="${time}">login_time</span>
+            </li>
+        </ul>
+
+
+
+
+
+
+
+    <!--    <form method="POST" enctype="multipart/form-data" th:action="@{/users/image}" th:object="${formImage}">-->
+    <!--        <input type="file" name="imageFile">-->
+    <!--        <button type="submit">Upload</button>-->
+    <!--    </form>-->
+    <h3>Загрузите новое фото:</h3>
+    <form th:action="@{/users/image}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" class="button"/>
+        <button type="submit" class="button">Загрузить</button>
+    </form>
+
+    <form th:action="@{/users/main/delete/logs}" class="find_users">
+        <button class="button">Очистить логи входа</button>
+    </form>
+
+    <form th:action="@{/users/}" class="find_users">
+        <button class="button">Найти пользователя</button>
+    </form>
+
+    <form th:action="@{/users/main/edit}" class="find_users">
+        <button class="button">Изменить</button>
+    </form>
+
+
+    <form th:action="@{/logout}" method="post" class="sign_out">
+        <input type="submit" value="Выйти" class="button"/>
+    </form>
+
+</div>
+</body>
+</html>
